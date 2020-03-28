@@ -9,21 +9,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemArr: []
+      itemArr: [
+        { id: 0, text: "할 일1" }
+      ]
     }
-  }
-  Delete = () => {
-    console.log("delete!!");
   }
 
   Post = (e) => {
+    console.log("post");
+    var idx = 0;
     let temp_string = this._inputElement.value;
     if (temp_string != "") {
       let tempArr = this.state.itemArr;
+      idx++;
 
       tempArr.push(
         {
-          key: Date.now(),
+          id: idx,
           text: temp_string
         }
       );
@@ -32,29 +34,29 @@ class App extends Component {
       this._inputElement.value = "";
       this.setState({ itemArr: tempArr });
 
-      // e.preventDefault();
-      console.log("Arr::" + this.state.itemArr);
-
+      e.preventDefault();
+      // console.log("Arr::" + this.state.itemArr);
     }
   }
 
   render() { //렌더 써주기 
-    let literal = "";
     return (
       <div className="main" >
         <p>To Do List</p>
         <input ref={(a) => this._inputElement = a} placeholder="할 일을 입력하세요" />
         <button onClick={this.Post}> 추가요~ </button>
-        {/* 자식 컴퍼넌트에 데이터 넘겨주며 불러오기  */}
+
         <List entries={this.state.itemArr} />
       </div>
     )
   }
-
 }
 
 
 export default App;
+
+
+
 
 
   // Rearrange = function () {
